@@ -22,17 +22,17 @@
       </div>
 
       <label>Destination playlist title</label>
-      <input id="title" value="All My Uploads (Mirror)">
+      <input id="title" value="OpenAI Sora - Generated Videos">
 
       <label>Privacy</label>
       <select id="privacy">
-        <option value="unlisted" selected>unlisted</option>
-        <option value="public">public</option>
-        <option value="private">private</option>
+        <option value="public" selected>Public</option>
+        <option value="private">Private</option>
+        <option value="unlisted">Unlisted</option>
       </select>
 
       <label>Insert pacing (ms between inserts)</label>
-      <input id="delay" type="number" min="0" value="200">
+      <input id="delay" type="number" min="1" value="10">
 
       <div class="row" style="margin-top:10px;">
         <button id="btnRun">Add all uploads → playlist</button>

@@ -22,13 +22,16 @@
 
     <div class="row">
       <div>
-        <label>Google OAuth Client ID</label>
-        <input id="clientId" placeholder="1234567890-abcdefg.apps.googleusercontent.com">
-      </div>
+        <p>
+          <label>Google OAuth Client ID</label>
+          <div style="display: ruby-text;"><input id="clientId" placeholder="1234567890-abcdefg.apps.googleusercontent.com"> <span id="id_status"></span></div>
+        </p>
+        <p>
+          <label>Google OAuth Client SECRET (test-only)</label>
+          <div style="display: ruby-text;"><input id="clientSecret" placeholder="W1234567890CRX"> <span id="secret_status"></span></div>
+        </p>
       <button id="save">Save</button>
     </div>
-
-    <div id="status"></div>
     <script src="options.js"></script>
   </body>
 </html>

@@ -12,6 +12,7 @@ const SCOPES = [
 
 const STORE_KEYS = {
   CLIENT_ID: 'google_oauth_client_id',
+  CLIENT_SECRET: 'google_oauth_client_secret',
   TOKENS: 'oauth_tokens' // { access_token, refresh_token, expires_at }
 };
 
@@ -44,6 +45,9 @@ function randomString(len = 64) {
 async function getValidAccessToken(interactive = true) {
   const clientId = await getStore(STORE_KEYS.CLIENT_ID);
   if (!clientId) throw new Error('Missing Google OAuth Client ID. Open Options and set it.');
+
+  const clientSecret = await getStore(STORE_KEYS.CLIENT_SECRET);
+  if (!clientSecret) throw new Error('Missing Google OAuth Client SECRET. Open Options and set it.');
 
   let tokens = await getStore(STORE_KEYS.TOKENS);
   const now = Math.floor(Date.now() / 1000);
@@ -101,12 +105,14 @@ async function getValidAccessToken(interactive = true) {
     grant_type: 'authorization_code',
     code: authCode,
     client_id: clientId,
+    client_secret: clientSecret,
     redirect_uri: redirectUri,
     code_verifier: codeVerifier
   });
 
   const newTokens = {
     access_token: tokenResp.access_token,
+    client_secret: tokenResp.clientSecret,
     refresh_token: tokenResp.refresh_token, // may be undefined unless Google issues one
     expires_at: Math.floor(Date.now() / 1000) + (tokenResp.expires_in || 3600)
   };
@@ -250,33 +256,36 @@ async function runBulkAdd({title, privacy, delayMs}) {
 // ---------- Message handling from popup ----------
 chrome.runtime.onMessage.addListener((msg, sender, sendResponse) => {
   (async () => {
-    if (msg?.type === 'getRedirectUri') {
-      // show the exact value to register in Google Cloud
-      sendResponse({ redirectUri: chrome.identity.getRedirectURL('oauth2') });
-      return;
-    }
-    if (msg?.type === 'setClientId') {
-      await setStore(STORE_KEYS.CLIENT_ID, msg.clientId.trim());
-      sendResponse({ ok: true });
-      return;
-    }
-    if (msg?.type === 'login') {
-      try {
-        const token = await getValidAccessToken(true);
-        sendResponse({ ok: true, tokenPresent: !!token });
-      } catch (e) {
-        sendResponse({ ok: false, error: e.message });
-      }
-      return;
-    }
-    if (msg?.type === 'run') {
-      try {
-        const result = await runBulkAdd(msg.options);
-        sendResponse({ ok: true, result });
-      } catch (e) {
-        sendResponse({ ok: false, error: e.message });
-      }
-      return;
+    switch (msg?.type)
+    {
+      case 'getRedirectUri':
+        // show the exact value to register in Google Cloud
+        sendResponse({ redirectUri: chrome.identity.getRedirectURL('oauth2') });
+        break;
+      case 'setClientId':
+        await setStore(STORE_KEYS.CLIENT_ID, msg.clientId.trim());
+        sendResponse({ ok: true });
+        break;
+      case 'setClientSecret':
+        await setStore(STORE_KEYS.CLIENT_SECRET, msg.clientSecret.trim());
+        sendResponse({ ok: true });
+        break;
+      case 'login':
+        try {
+          const token = await getValidAccessToken(true);
+          sendResponse({ ok: true, tokenPresent: !!token });
+        } catch (e) {
+          sendResponse({ ok: false, error: e.message });
+        }
+        break;
+      case 'run':
+        try {
+          const result = await runBulkAdd(msg.options);
+          sendResponse({ ok: true, result });
+        } catch (e) {
+          sendResponse({ ok: false, error: e.message });
+        }
+        break;
     }
   })();
   return true; // keep the message channel alive for async
