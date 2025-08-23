@@ -1,0 +1,34 @@
+
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>YT Bulk Add — Options</title>
+    <style>
+      body { font: 13px/1.4 system-ui, Segoe UI, Arial, sans-serif; max-width: 720px; padding: 20px; }
+      label { display:block; margin-top:10px; font-weight:600; }
+      input { width:100%; padding:6px; }
+      code { background:#f6f6f6; padding:2px 4px; }
+      .row { display:flex; gap:12px; align-items:flex-end; }
+      .row > * { flex:1; }
+      #status { margin-top:10px; }
+    </style>
+  </head>
+  <body>
+    <h2>Google OAuth Setup</h2>
+    <p>1) Create an OAuth 2.0 <strong>Web application</strong> Client ID in Google Cloud.<br>
+       2) Add this Authorized redirect URI: <code id="redir"></code><br>
+       3) Paste your <strong>Client ID</strong> below and Save.</p>
+
+    <div class="row">
+      <div>
+        <label>Google OAuth Client ID</label>
+        <input id="clientId" placeholder="1234567890-abcdefg.apps.googleusercontent.com">
+      </div>
+      <button id="save">Save</button>
+    </div>
+
+    <div id="status"></div>
+    <script src="options.js"></script>
+  </body>
+</html>

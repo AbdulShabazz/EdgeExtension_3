@@ -1,0 +1,15 @@
+{
+  "manifest_version": 3,
+  "name": "YouTube: Add All Uploads to a Playlist (Edge)",
+  "version": "1.0.0",
+  "description": "Bulk-add every uploaded video from your channel to a chosen playlist (creates if missing).",
+  "permissions": ["identity", "storage"],
+  "host_permissions": [
+    "https://accounts.google.com/*",
+    "https://oauth2.googleapis.com/*",
+    "https://www.googleapis.com/*"
+  ],
+  "background": { "service_worker": "background.js", "type": "module" },
+  "action": { "default_popup": "popup.html" },
+  "options_page": "options.html"
+}
