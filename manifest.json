@@ -10,6 +10,6 @@
     "https://www.googleapis.com/*"
   ],
   "background": { "service_worker": "background.js", "type": "module" },
-  "action": { "default_popup": "popup.html" },
-  "options_page": "options.html"
+  "action": { "default_popup": "popup.htm" },
+  "options_page": "options.htm"
 }
