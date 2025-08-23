@@ -6,8 +6,8 @@ $('#btnOptions').onclick = () => chrome.runtime.openOptionsPage();
 
 $('#btnLogin').onclick = async () => {
   const resp = await chrome.runtime.sendMessage({ type: 'login' });
-  if (resp?.ok) log('✅ Authenticated.');
-  else log('❌ Auth failed: ' + (resp?.error || 'unknown'));
+  if (resp?.ok) log('SUCCESS! - Authenticated.');
+  else log('ERROR! - Auth failed: ' + (resp?.error || 'unknown'));
 };
 
 $('#btnShowRedirect').onclick = async () => {
