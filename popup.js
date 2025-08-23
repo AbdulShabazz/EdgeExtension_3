@@ -25,7 +25,7 @@ $('#btnRun').onclick = async () => {
 
   log('Starting… fetching uploads & destination…');
   const resp = await chrome.runtime.sendMessage({ type: 'run', options: { title, privacy, delayMs } });
-  if (!resp?.ok) { log('❌ Error: ' + (resp?.error || 'unknown')); return; }
+  if (!resp?.ok) { log('ERROR! - Error: ' + (resp?.error || 'unknown')); return; }
   const { inserted, skipped, errors, total } = resp.result;
   log(`Done. Total uploads: ${total}. Inserted: ${inserted}. Skipped: ${skipped}. Errors: ${errors}.`);
 };
