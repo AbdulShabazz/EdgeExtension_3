@@ -549,7 +549,6 @@ If you want, tell me the exact **playlist title** and **privacy** you prefer as 
 (() => {
   const listBox = document.querySelector('div[role="listbox"][aria-label="Youtube Grid"]')
   const doneBtn = document.querySelector('div[jsname="tnUVBb"]');
-  const elems = Array.from(document.querySelectorAll('div[jsaction*="mouseenter:"][role="option"]'));
   const I = elems.length;
 
   if (!I) 
@@ -571,6 +570,7 @@ If you want, tell me the exact **playlist title** and **privacy** you prefer as 
       listBox.dispatchEvent(new Event('scroll')); 
     } else {
       clearInterval(scr);
+      const elems = Array.from(document.querySelectorAll('div[jsaction*="mouseenter:"][role="option"]'));
       // Each item subscribes a handler on the bus
       for (const el of elems) {
         el.invokeclick = (i) => {
