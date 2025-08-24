@@ -551,5 +551,19 @@ Array.from(document.querySelectorAll('div[jsaction*="mouseenter:"][role="option"
 
 ### option 3 (url:https://www.youtube.com/playlist?list=[target] - paste in console)(e.g., list=PLoervgkkJMu5E0wFZJ8bR1w57Uy63E3xn)(verified!)
 ```js
-var i = 0; var elem = Array.from(document.querySelectorAll('div[jsaction*="mouseenter:"][role="option"]')); var I = elem.length; var ci = setInterval(() => { if (i<I){ elem[i++].click() } else { clearInterval(ci) } },10);
+var elem = 
+  Array.from(
+    document.querySelectorAll('div[jsaction*="mouseenter:"][role="option"]'));
+var d_ms = 10;
+var i = 0;  
+var I = elem.length; 
+var ci = setInterval(
+  () => { 
+    if (i<I){ 
+      elem[i++].click(); 
+    } else { 
+      clearInterval(ci); 
+    } 
+  },
+  d_ms);
 ```
