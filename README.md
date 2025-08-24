@@ -551,6 +551,8 @@ If you want, tell me the exact **playlist title** and **privacy** you prefer as 
   const elems = Array.from(document.querySelectorAll('div[jsaction*="mouseenter:"][role="option"]'));
   let I = elems.length;
 
+  // todo: add scrollTo event
+
   // Each item subscribes a handler on the bus
   for (const el of elems) {
     el.invokeclick = (i) => {
