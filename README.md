@@ -553,7 +553,7 @@ If you want, tell me the exact **playlist title** and **privacy** you prefer as 
   let lastCount  = 0;
   let lastHeight = 0;
 
-  // scroll eventually poplulates all videos
+  // scroll iteratively poplulates all videos
   const scr = setInterval(() => {
     listBox.scrollTop = listBox.scrollHeight;
     listBox.dispatchEvent(new Event('scroll')); 
@@ -572,7 +572,7 @@ If you want, tell me the exact **playlist title** and **privacy** you prefer as 
       if (!I) 
         return;
       
-      // Each item subscribes a handler on the bus
+      // attach event handlers on the bus
       for (const el of elems) {
         el.invokeclick = (i) => {
             if (i<I) {
@@ -588,6 +588,7 @@ If you want, tell me the exact **playlist title** and **privacy** you prefer as 
         };
       }
       
+      // start the click chain
       elems[0].invokeclick(0);
     }
   }, 1500);
