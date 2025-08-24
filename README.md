@@ -544,7 +544,7 @@ If you want, tell me the exact **playlist title** and **privacy** you prefer as 
 [8]: https://developers.google.com/youtube/v3/guides/auth/installed-apps?utm_source=chatgpt.com "OAuth 2.0 for Mobile & Desktop Apps | YouTube Data API"
 [9]: https://developers.google.com/youtube/v3/guides/quota_and_compliance_audits?utm_source=chatgpt.com "Quota and Compliance Audits | YouTube Data API"
 
-### option 2 (url:https://www.youtube.com/playlist?list=[target] - paste in console)(e.g. list=PLoervgkkJMu5E0wFZJ8bR1w57Uy63E3xn)(partially-verified)
+### option 2 (url:https://www.youtube.com/playlist?list=[target] - paste in console)(e.g. list=PLoervgkkJMu5E0wFZJ8bR1w57Uy63E3xn)(verified)
 ```js
 (() => {
   const listBox = document.querySelector('div[role="listbox"][aria-label="Youtube Grid"]')
