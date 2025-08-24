@@ -548,7 +548,7 @@ If you want, tell me the exact **playlist title** and **privacy** you prefer as 
 ```js
 (() => {
   const listBox = document.querySelector('div[role="listbox"][aria-label="Youtube Grid"]')
-  const doneBtn = document.querySelector('div[jsname="tnUVBb"]');
+  const doneBtn = document.querySelectorAll('button')[2];
 
   let lastCount  = 0;
   let lastHeight = 0;
