@@ -547,6 +547,7 @@ If you want, tell me the exact **playlist title** and **privacy** you prefer as 
 ### option 2 (url:https://www.youtube.com/playlist?list=[target] - paste in console)(e.g. list=PLoervgkkJMu5E0wFZJ8bR1w57Uy63E3xn)(partially-verified)
 ```js
 (() => {
+  const doneBtn = document.querySelector('div[jsname="tnUVBb"]');
   const elems = Array.from(document.querySelectorAll('div[jsaction*="mouseenter:"][role="option"]'));
   let I = elems.length;
 
@@ -555,7 +556,9 @@ If you want, tell me the exact **playlist title** and **privacy** you prefer as 
     el.invokeclick = (i) => {
         if (i<I) {
             el.click();
-            setTimeout(() => { elems[i++].invokeclick(i); }, 500);            
+            setTimeout(() => { elems[i++].invokeclick(i); }, 650);            
+        } else {
+          doneBtn.click();
         }
     };
   }
