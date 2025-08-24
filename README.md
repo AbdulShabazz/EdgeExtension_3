@@ -547,25 +547,48 @@ If you want, tell me the exact **playlist title** and **privacy** you prefer as 
 ### option 2 (url:https://www.youtube.com/playlist?list=[target] - paste in console)(e.g. list=PLoervgkkJMu5E0wFZJ8bR1w57Uy63E3xn)(partially-verified)
 ```js
 (() => {
+  const listBox = document.querySelector('div[role="listbox"][aria-label="Youtube Grid"]')
   const doneBtn = document.querySelector('div[jsname="tnUVBb"]');
   const elems = Array.from(document.querySelectorAll('div[jsaction*="mouseenter:"][role="option"]'));
   const I = elems.length;
 
-  // todo: add scrollTo event
+  if (!I) 
+    return;
 
-  // Each item subscribes a handler on the bus
-  for (const el of elems) {
-    el.invokeclick = (i) => {
-        if (i<I) {
-            el.click();
-            setTimeout(() => { elems[i++].invokeclick(i); }, 650);            
-        } else {
-          doneBtn.click();
-        }
-    };
-  }
+  let lastCount  = 0;
+  let lastHeight = 0;
 
-  let i = 0;
-  elems[0].invokeclick(i);
+  // scroll eventually poplulates all videos
+  const scr = setInterval(() => {
+    listBox.scrollTop = listBox.scrollHeight;
+    listBox.dispatchEvent(new Event('scroll')); 
+    const nowCount  = listBox.querySelectorAll('div[role="option"]').length;
+    const nowHeight = listBox.scrollHeight;
+    if (nowCount !== lastCount || nowHeight !== lastHeight) {
+      lastCount  = nowCount;
+      lastHeight = nowHeight;
+      listBox.scrollTop = listBox.scrollHeight;
+      listBox.dispatchEvent(new Event('scroll')); 
+    } else {
+      clearInterval(scr);
+      // Each item subscribes a handler on the bus
+      for (const el of elems) {
+        el.invokeclick = (i) => {
+            if (i<I) {
+                el.click();
+                const next = i + 1;
+                if (next<I)
+                  setTimeout(() => { elems[next].invokeclick(next); }, 650);
+                else
+                  doneBtn?.click();         
+            } else {
+              doneBtn?.click();
+            }
+        };
+      }
+      
+      elems[0].invokeclick(0);
+    }
+  }, 1500);
 })();
 ```
