@@ -544,26 +544,23 @@ If you want, tell me the exact **playlist title** and **privacy** you prefer as 
 [8]: https://developers.google.com/youtube/v3/guides/auth/installed-apps?utm_source=chatgpt.com "OAuth 2.0 for Mobile & Desktop Apps | YouTube Data API"
 [9]: https://developers.google.com/youtube/v3/guides/quota_and_compliance_audits?utm_source=chatgpt.com "Quota and Compliance Audits | YouTube Data API"
 
-### option 2 (url:https://www.youtube.com/playlist?list=[target] - paste in console)(e.g. list=PLoervgkkJMu5E0wFZJ8bR1w57Uy63E3xn)
+### option 2 (url:https://www.youtube.com/playlist?list=[target] - paste in console)(e.g. list=PLoervgkkJMu5E0wFZJ8bR1w57Uy63E3xn)(partially-verified)
 ```js
-Array.from(document.querySelectorAll('div[jsaction*="mouseenter:"][role="option"]')).map((elem,i) => { if (i>19) elem.click(); return elem;});
-```
+(() => {
+  const elems = Array.from(document.querySelectorAll('div[jsaction*="mouseenter:"][role="option"]'));
+  let I = elems.length;
 
-### option 3 (url:https://www.youtube.com/playlist?list=[target] - paste in console)(e.g., list=PLoervgkkJMu5E0wFZJ8bR1w57Uy63E3xn)(verified!)
-```js
-var elem = 
-  Array.from(
-    document.querySelectorAll('div[jsaction*="mouseenter:"][role="option"]'));
-var d_ms = 10;
-var i = 0;  
-var I = elem.length; 
-var ci = setInterval(
-  () => { 
-    if (i<I){ 
-      elem[i++].click(); 
-    } else { 
-      clearInterval(ci); 
-    } 
-  },
-  d_ms);
+  // Each item subscribes a handler on the bus
+  for (const el of elems) {
+    el.invokeclick = (i) => {
+        if (i<I) {
+            el.click();
+            setTimeout(() => { elems[i++].invokeclick(i); }, 500);            
+        }
+    };
+  }
+
+  let i = 0;
+  elems[0].invokeclick(i);
+})();
 ```
