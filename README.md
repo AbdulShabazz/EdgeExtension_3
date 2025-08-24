@@ -549,10 +549,6 @@ If you want, tell me the exact **playlist title** and **privacy** you prefer as 
 (() => {
   const listBox = document.querySelector('div[role="listbox"][aria-label="Youtube Grid"]')
   const doneBtn = document.querySelector('div[jsname="tnUVBb"]');
-  const I = elems.length;
-
-  if (!I) 
-    return;
 
   let lastCount  = 0;
   let lastHeight = 0;
@@ -571,6 +567,11 @@ If you want, tell me the exact **playlist title** and **privacy** you prefer as 
     } else {
       clearInterval(scr);
       const elems = Array.from(document.querySelectorAll('div[jsaction*="mouseenter:"][role="option"]'));
+      const I = elems.length;
+
+      if (!I) 
+        return;
+      
       // Each item subscribes a handler on the bus
       for (const el of elems) {
         el.invokeclick = (i) => {
