@@ -549,7 +549,7 @@ If you want, tell me the exact **playlist title** and **privacy** you prefer as 
 (() => {
   const doneBtn = document.querySelector('div[jsname="tnUVBb"]');
   const elems = Array.from(document.querySelectorAll('div[jsaction*="mouseenter:"][role="option"]'));
-  let I = elems.length;
+  const I = elems.length;
 
   // todo: add scrollTo event
 
