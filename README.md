@@ -543,3 +543,13 @@ If you want, tell me the exact **playlist title** and **privacy** you prefer as 
 [7]: https://developers.google.com/youtube/v3/determine_quota_cost "Quota Calculator  |  YouTube Data API  |  Google for Developers"
 [8]: https://developers.google.com/youtube/v3/guides/auth/installed-apps?utm_source=chatgpt.com "OAuth 2.0 for Mobile & Desktop Apps | YouTube Data API"
 [9]: https://developers.google.com/youtube/v3/guides/quota_and_compliance_audits?utm_source=chatgpt.com "Quota and Compliance Audits | YouTube Data API"
+
+### option 2 (url:https://www.youtube.com/playlist?list=[target] - paste in console)(e.g. list=PLoervgkkJMu5E0wFZJ8bR1w57Uy63E3xn)
+```js
+Array.from(document.querySelectorAll('div[jsaction*="mouseenter:"][role="option"]')).map((elem,i) => { if (i>19) elem.click(); return elem;});
+```
+
+### option 3 (url:https://www.youtube.com/playlist?list=[target] - paste in console)(e.g., list=PLoervgkkJMu5E0wFZJ8bR1w57Uy63E3xn)
+```js
+var i = 0; var elem = Array.from(document.querySelectorAll('div[jsaction*="mouseenter:"][role="option"]')); var I = elem.length; var ci = setInterval(() => { if (i<I){ elem[i++].click() } else { clearInterval(ci) } },10);
+```
