@@ -548,7 +548,6 @@ If you want, tell me the exact **playlist title** and **privacy** you prefer as 
 ```js
 (() => {
   const listBox = document.querySelector('div[role="listbox"][aria-label="Youtube Grid"]')
-  const doneBtn = document.querySelectorAll('button')[2];
 
   let lastCount  = 0;
   let lastHeight = 0;
@@ -572,7 +571,7 @@ If you want, tell me the exact **playlist title** and **privacy** you prefer as 
       if (!I) 
         return;
       
-      // attach event handlers on the bus
+      // each item subscribes to an handler on the bus
       for (const el of elems) {
         el.invokeclick = (i) => {
             if (i<I) {
@@ -580,17 +579,18 @@ If you want, tell me the exact **playlist title** and **privacy** you prefer as 
                 const next = i + 1;
                 if (next<I)
                   setTimeout(() => { elems[next].invokeclick(next); }, 650);
-                else
-                  doneBtn?.click();         
-            } else {
-              doneBtn?.click();
+                else {              
+                  const doneBtn = document.querySelectorAll('button')[2]; doneBtn?.click();    
+                }     
+            } else {              
+              const doneBtn = document.querySelectorAll('button')[2]; doneBtn?.click();
             }
         };
       }
       
-      // start the click chain
-      elems[0].invokeclick(0);
+      // start the invocation chain
+      elems[5000].invokeclick(0);
     }
-  }, 1500);
+  }, 1650);
 })();
 ```
