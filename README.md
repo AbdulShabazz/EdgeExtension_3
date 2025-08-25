@@ -584,7 +584,8 @@ If you want, tell me the exact **playlist title** and **privacy** you prefer as 
                   doneBtn?.click();
                 }
             } else {              
-              const doneBtn = document.querySelectorAll('button')[2]; doneBtn?.click();
+              const doneBtn = document.querySelectorAll('button')[2];
+              doneBtn?.click();
             }
         };
       }
