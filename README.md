@@ -571,7 +571,7 @@ If you want, tell me the exact **playlist title** and **privacy** you prefer as 
       if (!I) 
         return;
       
-      // each item subscribes to an handler on the bus
+      // each item subscribes a handler on the bus
       for (const el of elems) {
         el.invokeclick = (i) => {
             if (i<I) {
@@ -580,16 +580,17 @@ If you want, tell me the exact **playlist title** and **privacy** you prefer as 
                 if (next<I)
                   setTimeout(() => { elems[next].invokeclick(next); }, 650);
                 else {              
-                  const doneBtn = document.querySelectorAll('button')[2]; doneBtn?.click();    
-                }     
+                  const doneBtn = document.querySelectorAll('button')[2]; 
+                  doneBtn?.click();
+                }
             } else {              
               const doneBtn = document.querySelectorAll('button')[2]; doneBtn?.click();
             }
         };
       }
       
-      // start the invocation chain
-      elems[5000].invokeclick(0);
+      // start the invoke chain
+      elems[5000].invokeclick(5000);
     }
   }, 1650);
 })();

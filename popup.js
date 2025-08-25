@@ -33,7 +33,12 @@ $('#btnRun').onclick = async () => {
 // progress updates during run
 chrome.runtime.onMessage.addListener((m) => {
   if (m?.type === 'progress') {
-    const { inserted, skipped, errors, total } = m.data;
-    log(`Progress: inserted=${inserted}, skipped=${skipped}, errors=${errors}, total=${total}`);
+    const { inserted, skipped, errors, total, msg } = m.data;
+    //log(`Progress: inserted=${inserted}, skipped=${skipped}, errors=${errors}, total=${total}`);
+    inserted_.textContent = inserted;
+    skipped_.textContent = skipped;
+    errors_.textContent = errors;
+    total_.textContent = total;
+    log(msg);
   }
 });

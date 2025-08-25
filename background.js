@@ -235,6 +235,7 @@ async function runBulkAdd({title, privacy, delayMs}) {
 
   let inserted = 0, skipped = 0, errors = 0;
   for (const vid of uploadIds) {
+    let msg = "";
     if (have.has(vid)) { skipped++; continue; }
     try {
       await addVideoToPlaylist(destId, vid);
@@ -242,12 +243,13 @@ async function runBulkAdd({title, privacy, delayMs}) {
       await new Promise(r => setTimeout(r, delayMs));
     } catch (e) {
       errors++;
-      console.error('Insert failed for', vid, e);
+      msg = `Insert failed for ${vid}: ${e}`;
+      //console.error('Insert failed for', vid, e);
     }
     // progress ping to popup
     chrome.runtime.sendMessage({
       type: 'progress',
-      data: { inserted, skipped, errors, total: uploadIds.length }
+      data: { inserted, skipped, errors, total: uploadIds.length, msg }
     }).catch(()=>{ /* popup may be closed */ });
   }
   return { inserted, skipped, errors, total: uploadIds.length };
