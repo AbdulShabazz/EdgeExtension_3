@@ -590,7 +590,7 @@ If you want, tell me the exact **playlist title** and **privacy** you prefer as 
       }
       
       // start the invoke chain
-      elems[5000].invokeclick(5000);
+      elems[0].invokeclick(0);
     }
   }, 1650);
 })();
